@@ -1,9 +1,4 @@
-'use client'
-
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
 import Image from 'next/image'
-import { useRef } from 'react'
 
 type Photo = { src: string; alt: string; pos?: string }
 
@@ -12,47 +7,32 @@ type Props = {
   className?: string
 }
 
+// Each photo is ~34vw wide. Target scroll speed ≈ 4.25 vw/s
+// → duration (s) = n × 34 / 4.25 ≈ n × 8
+function duration(n: number) {
+  return `${n * 8}s`
+}
+
 export default function PhotoStrip({ photos, className = '' }: Props) {
-  const autoplay = useRef(
-    Autoplay({ delay: 3500, stopOnInteraction: false, playOnInit: true })
-  )
-  const [emblaRef] = useEmblaCarousel(
-    { loop: true, align: 'start', containScroll: false },
-    [autoplay.current]
-  )
+  const doubled = [...photos, ...photos]
 
   return (
     <div className={`w-full overflow-hidden ${className}`}>
-      {/* Mobile: swipeable carousel with auto-advance */}
-      <div className="sm:hidden overflow-hidden" ref={emblaRef}>
-        <div className="flex">
-          {photos.map((photo) => (
-            <div
-              key={photo.src}
-              className="relative flex-[0_0_82%] mr-3 last:mr-0 aspect-[4/3] rounded overflow-hidden"
-            >
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                fill
-                className={`object-cover ${photo.pos ?? 'object-top'}`}
-                sizes="82vw"
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop: full-bleed 3-column strip */}
-      <div className="hidden sm:grid sm:grid-cols-3">
-        {photos.map((photo) => (
-          <div key={photo.src} className="relative aspect-[4/3] overflow-hidden">
+      <div
+        className="flex"
+        style={{ animation: `marquee ${duration(photos.length)} linear infinite` }}
+      >
+        {doubled.map((photo, i) => (
+          <div
+            key={i}
+            className="relative aspect-[4/3] shrink-0 w-[80vw] sm:w-[40vw] md:w-[34vw]"
+          >
             <Image
               src={photo.src}
               alt={photo.alt}
               fill
               className={`object-cover ${photo.pos ?? 'object-top'}`}
-              sizes="33vw"
+              sizes="(max-width: 640px) 80vw, (max-width: 768px) 40vw, 34vw"
             />
           </div>
         ))}
