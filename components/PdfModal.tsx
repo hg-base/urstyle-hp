@@ -4,9 +4,26 @@ import { useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { FileText, X } from 'lucide-react'
 
-// A4 at 96 dpi
 const A4_W = 794
 const A4_H = 1123
+
+type Layout = { scale: number; top: number; left: number }
+
+function calcLayout(): Layout {
+  const sidePad = 12
+  const btnArea = 80   // height reserved for × button
+  const botPad  = 12
+  const availW  = window.innerWidth  - sidePad * 2
+  const availH  = window.innerHeight - btnArea - botPad
+  const scale   = Math.min(availW / A4_W, availH / A4_H, 1)
+  const pdfW    = A4_W * scale
+  const pdfH    = A4_H * scale
+  return {
+    scale,
+    top:  btnArea + (availH - pdfH) / 2,   // vertically centered in usable area
+    left: (window.innerWidth - pdfW) / 2,  // horizontally centered
+  }
+}
 
 type Props = {
   src: string
@@ -18,18 +35,16 @@ type Props = {
 
 export default function PdfModal({ src, title, label, className = '', style }: Props) {
   const [open, setOpen] = useState(false)
-  const [scale, setScale] = useState(1)
+  const [layout, setLayout] = useState<Layout>({ scale: 1, top: 0, left: 0 })
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
 
-  const calcScale = useCallback(() => {
-    const sidePad = 12   // small margin on left/right
-    const btnArea = 80   // × button height at the top
-    const botPad  = 12
-    const availW = window.innerWidth  - sidePad * 2
-    const availH = window.innerHeight - btnArea - botPad
-    setScale(Math.min(availW / A4_W, availH / A4_H, 1))
+  // Open: compute layout SYNCHRONOUSLY in the event handler so the first
+  // render already has the correct size/position (no flash, no useEffect lag).
+  const handleOpen = useCallback(() => {
+    setLayout(calcLayout())
+    setOpen(true)
   }, [])
 
   useEffect(() => {
@@ -44,11 +59,11 @@ export default function PdfModal({ src, title, label, className = '', style }: P
     document.body.style.right    = '0'
     document.body.style.overflow = 'hidden'
 
-    calcScale()
-    window.addEventListener('resize', calcScale, { passive: true })
+    const onResize = () => setLayout(calcLayout())
+    window.addEventListener('resize', onResize, { passive: true })
 
     return () => {
-      window.removeEventListener('resize', calcScale)
+      window.removeEventListener('resize', onResize)
       document.documentElement.style.overflow = ''
       document.body.style.position = ''
       document.body.style.top      = ''
@@ -57,7 +72,9 @@ export default function PdfModal({ src, title, label, className = '', style }: P
       document.body.style.overflow = ''
       window.scrollTo(0, scrollY)
     }
-  }, [open, calcScale])
+  }, [open])
+
+  const { scale, top, left } = layout
 
   const overlay = (
     <div
@@ -73,7 +90,7 @@ export default function PdfModal({ src, title, label, className = '', style }: P
       }}
       onTouchMove={(e) => e.stopPropagation()}
     >
-      {/* × button — top-right, floating */}
+      {/* × button */}
       <button
         type="button"
         onClick={() => setOpen(false)}
@@ -98,21 +115,15 @@ export default function PdfModal({ src, title, label, className = '', style }: P
         <X style={{ width: 24, height: 24, color: '#fff' }} strokeWidth={2.5} />
       </button>
 
-      {/*
-        PDF card: absolute-centering with translate is the most reliable
-        cross-browser approach — avoids flex height calculation issues.
-        Outer div reserves the scaled footprint; inner div is A4 size then
-        CSS-scaled to avoid rendering at low resolution.
-      */}
+      {/* PDF card: explicitly positioned via JS — avoids CSS % gotchas on iOS */}
       <div
         style={{
-          position:  'absolute',
-          top:       '50%',
-          left:      '50%',
-          transform: 'translate(-50%, -50%)',
-          width:     A4_W * scale,
-          height:    A4_H * scale,
-          overflow:  'hidden',
+          position: 'absolute',
+          top,
+          left,
+          width:    A4_W * scale,
+          height:   A4_H * scale,
+          overflow: 'hidden',
         }}
       >
         <div
@@ -126,12 +137,7 @@ export default function PdfModal({ src, title, label, className = '', style }: P
           <iframe
             src={src}
             title={title}
-            style={{
-              width:   '100%',
-              height:  '100%',
-              border:  'none',
-              display: 'block',
-            }}
+            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
             allow="fullscreen"
           />
         </div>
@@ -143,7 +149,7 @@ export default function PdfModal({ src, title, label, className = '', style }: P
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={handleOpen}
         className={`inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70 ${className}`}
         style={style}
       >
