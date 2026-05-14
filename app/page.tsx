@@ -5,7 +5,7 @@ import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Truck, Tv, Users } from 'lucide-react'
+import { ArrowRight, Truck, Tv } from 'lucide-react'
 
 export default function HomePage() {
   return (
@@ -249,23 +249,17 @@ export default function HomePage() {
             <SectionTitle title="採用情報" label="03 / Recruit" />
           </AnimateOnScroll>
           <AnimateOnScroll delay={1}>
-            <div className="mt-12 text-center max-w-2xl mx-auto">
-              <div className="flex justify-center mb-6">
-                <Users
-                  className="w-12 h-12"
-                  style={{ color: 'var(--accent)' }}
-                />
-              </div>
+            <div className="mt-12 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
               <p
-                className="text-base leading-relaxed mb-8"
+                className="text-sm sm:text-base leading-relaxed max-w-xl"
                 style={{ color: 'var(--muted)' }}
               >
-                ユアスタイル合同会社では、現場を共に支えるメンバーを募集しています。
-                <br />
-                軽貨物ドライバー・家電設置スタッフとして一緒に働きませんか？
+                ユアスタイル合同会社では、軽貨物および大型家電設置業務を行うスタッフを募集しています。
+                配送業務や引越しに伴う家電設置など、現場作業を中心とした仕事です。
+                未経験の方でも、実務を通して作業を覚えていただけます。
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/recruit" className="btn-primary min-h-[44px]">
+              <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+                <Link href="/recruit" className="btn-primary min-h-[44px] w-full sm:w-auto justify-center">
                   採用情報を見る
                   <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -273,13 +267,36 @@ export default function HomePage() {
                   href="https://en-gage.net/urstyle-recruit/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-outline min-h-[44px]"
+                  className="btn-outline min-h-[44px] w-full sm:w-auto justify-center"
                   style={{ color: 'var(--text)' }}
                 >
-                  募集要項を見る（エンゲージ）
+                  募集要項を見る
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
+            </div>
+          </AnimateOnScroll>
+
+          <AnimateOnScroll delay={2}>
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {[
+                { src: '/images/photo-08.webp', alt: 'URSTYLEスタッフ' },
+                { src: '/images/photo-10.webp', alt: 'URSTYLEチーム' },
+                { src: '/images/photo-09.webp', alt: '現場作業スタッフ' },
+              ].map((img) => (
+                <div
+                  key={img.src}
+                  className="aspect-[4/3] rounded overflow-hidden relative"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                  />
+                </div>
+              ))}
             </div>
           </AnimateOnScroll>
         </div>
