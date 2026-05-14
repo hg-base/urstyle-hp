@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { FileText, X } from 'lucide-react'
 
 // A4 at 96 dpi
@@ -18,10 +19,14 @@ type Props = {
 export default function PdfModal({ src, title, label, className = '', style }: Props) {
   const [open, setOpen] = useState(false)
   const [scale, setScale] = useState(1)
+  const [mounted, setMounted] = useState(false)
+
+  // Wait for client mount before using createPortal
+  useEffect(() => { setMounted(true) }, [])
 
   const calcScale = useCallback(() => {
-    const sidePad = 20   // left + right margin
-    const topPad  = 64   // room for the × button
+    const sidePad = 20
+    const topPad  = 64   // space for × button
     const botPad  = 20
     const availW = window.innerWidth  - sidePad * 2
     const availH = window.innerHeight - topPad - botPad
@@ -35,9 +40,9 @@ export default function PdfModal({ src, title, label, className = '', style }: P
     const scrollY = window.scrollY
     document.documentElement.style.overflow = 'hidden'
     document.body.style.position = 'fixed'
-    document.body.style.top    = `-${scrollY}px`
-    document.body.style.left   = '0'
-    document.body.style.right  = '0'
+    document.body.style.top      = `-${scrollY}px`
+    document.body.style.left     = '0'
+    document.body.style.right    = '0'
     document.body.style.overflow = 'hidden'
 
     calcScale()
@@ -55,9 +60,67 @@ export default function PdfModal({ src, title, label, className = '', style }: P
     }
   }, [open, calcScale])
 
+  // Rendered via createPortal so it escapes any CSS transform ancestor
+  // (AnimateOnScroll uses transform: translateY which would trap fixed children)
+  const overlay = (
+    <div
+      style={{
+        position:        'fixed',
+        inset:           0,
+        zIndex:          9999,
+        backgroundColor: '#000',
+        display:         'flex',
+        alignItems:      'center',
+        justifyContent:  'center',
+      }}
+      onTouchMove={(e) => e.stopPropagation()}
+    >
+      {/* × button — top-right, floating on black */}
+      <button
+        type="button"
+        onClick={() => setOpen(false)}
+        aria-label="閉じる"
+        style={{
+          position:        'absolute',
+          top:             16,
+          right:           16,
+          width:           48,
+          height:          48,
+          display:         'flex',
+          alignItems:      'center',
+          justifyContent:  'center',
+          borderRadius:    12,
+          backgroundColor: 'rgba(255,255,255,0.15)',
+          border:          'none',
+          cursor:          'pointer',
+          zIndex:          10000,
+          WebkitTapHighlightColor: 'transparent',
+        }}
+      >
+        <X style={{ width: 24, height: 24, color: '#fff' }} strokeWidth={2.5} />
+      </button>
+
+      {/* PDF card — centered, scaled to fit 1 A4 page */}
+      <div style={{ width: A4_W * scale, height: A4_H * scale, flexShrink: 0 }}>
+        <iframe
+          src={src}
+          title={title}
+          style={{
+            width:           A4_W,
+            height:          A4_H,
+            border:          'none',
+            display:         'block',
+            transform:       `scale(${scale})`,
+            transformOrigin: 'top left',
+          }}
+          allow="fullscreen"
+        />
+      </div>
+    </div>
+  )
+
   return (
     <>
-      {/* Trigger button */}
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -68,49 +131,8 @@ export default function PdfModal({ src, title, label, className = '', style }: P
         {label ?? title}
       </button>
 
-      {open && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center bg-black"
-          onTouchMove={(e) => e.stopPropagation()}
-        >
-          {/* Close button — top-right, floating on black backdrop */}
-          <button
-            type="button"
-            onClick={() => setOpen(false)}
-            className="absolute top-4 right-4 w-12 h-12 flex items-center justify-center rounded-xl bg-white/15 hover:bg-white/25 active:bg-white/35 transition-colors"
-            aria-label="閉じる"
-          >
-            <X className="w-6 h-6 text-white" strokeWidth={2.5} />
-          </button>
-
-          {/*
-            Outer div reserves the exact scaled footprint so flex centering works.
-            The iframe itself is rendered at full A4 size, then shrunk via CSS transform.
-            This keeps the PDF crisp rather than rendering at low resolution.
-          */}
-          <div
-            style={{
-              width:  A4_W * scale,
-              height: A4_H * scale,
-              flexShrink: 0,
-            }}
-          >
-            <iframe
-              src={src}
-              title={title}
-              style={{
-                width:           A4_W,
-                height:          A4_H,
-                border:          'none',
-                display:         'block',
-                transform:       `scale(${scale})`,
-                transformOrigin: 'top left',
-              }}
-              allow="fullscreen"
-            />
-          </div>
-        </div>
-      )}
+      {/* Portal bypasses the transform stacking context of AnimateOnScroll */}
+      {mounted && open && createPortal(overlay, document.body)}
     </>
   )
 }
