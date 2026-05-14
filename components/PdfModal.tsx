@@ -4,13 +4,25 @@ import { useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { FileText, X } from 'lucide-react'
 
-// A4 native dimensions at 96dpi
 const A4_W = 794
 const A4_H = 1123
-const BTN_H = 60
 
-// PDF viewers add ~5% side margin — zoom in slightly to clip it
-const VIEWER_ZOOM = 1.08
+type Layout = { scale: number; top: number; left: number }
+
+function calcLayout(): Layout {
+  const pad    = 12
+  const btnH   = 64
+  const availW = window.innerWidth  - pad * 2
+  const availH = window.innerHeight - btnH - pad
+  const scale  = Math.min(availW / A4_W, availH / A4_H, 1)
+  const pdfW   = A4_W * scale
+  const pdfH   = A4_H * scale
+  return {
+    scale,
+    left: (window.innerWidth  - pdfW) / 2,
+    top:  btnH + (availH - pdfH) / 2,
+  }
+}
 
 type Props = {
   src: string
@@ -22,17 +34,13 @@ type Props = {
 
 export default function PdfModal({ src, title, label, className = '', style }: Props) {
   const [open, setOpen] = useState(false)
-  const [scale, setScale] = useState(1)
+  const [layout, setLayout] = useState<Layout>({ scale: 1, top: 0, left: 0 })
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
 
-  const recalc = useCallback(() => {
-    setScale((window.innerWidth / A4_W) * VIEWER_ZOOM)
-  }, [])
-
   const handleOpen = useCallback(() => {
-    setScale((window.innerWidth / A4_W) * VIEWER_ZOOM)
+    setLayout(calcLayout())
     setOpen(true)
   }, [])
 
@@ -44,9 +52,10 @@ export default function PdfModal({ src, title, label, className = '', style }: P
     document.body.style.top      = `-${scrollY}px`
     document.body.style.left     = '0'
     document.body.style.right    = '0'
-    window.addEventListener('resize', recalc, { passive: true })
+    const onResize = () => setLayout(calcLayout())
+    window.addEventListener('resize', onResize, { passive: true })
     return () => {
-      window.removeEventListener('resize', recalc)
+      window.removeEventListener('resize', onResize)
       document.documentElement.style.overflow = ''
       document.body.style.position = ''
       document.body.style.top      = ''
@@ -54,49 +63,44 @@ export default function PdfModal({ src, title, label, className = '', style }: P
       document.body.style.right    = ''
       window.scrollTo(0, scrollY)
     }
-  }, [open, recalc])
+  }, [open])
 
-  // Horizontal centering: shift left by half the overflow so margins are clipped equally
-  const visualW  = A4_W * scale
-  const shiftX   = (visualW - (typeof window !== 'undefined' ? window.innerWidth : visualW)) / 2
+  const { scale, top, left } = layout
 
   const overlay = (
     <div
-      style={{ position: 'fixed', inset: 0, zIndex: 9999, backgroundColor: '#000', display: 'flex', flexDirection: 'column' }}
+      style={{ position: 'fixed', inset: 0, zIndex: 9999, backgroundColor: '#000' }}
       onTouchMove={(e) => e.stopPropagation()}
     >
-      {/* × button */}
-      <div style={{ height: BTN_H, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 16px' }}>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          aria-label="閉じる"
-          style={{
-            width: 48, height: 48,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            borderRadius: 12,
-            backgroundColor: 'rgba(255,255,255,0.15)',
-            border: 'none', cursor: 'pointer',
-            WebkitTapHighlightColor: 'transparent',
-          }}
-        >
-          <X style={{ width: 24, height: 24, color: '#fff' }} strokeWidth={2.5} />
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => setOpen(false)}
+        aria-label="閉じる"
+        style={{
+          position: 'absolute', top: 12, right: 16,
+          width: 48, height: 48,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          borderRadius: 12,
+          backgroundColor: 'rgba(255,255,255,0.15)',
+          border: 'none', cursor: 'pointer',
+          zIndex: 10000,
+          WebkitTapHighlightColor: 'transparent',
+        }}
+      >
+        <X style={{ width: 24, height: 24, color: '#fff' }} strokeWidth={2.5} />
+      </button>
 
-      {/* PDF area: overflow:hidden clips the zoom-in overhang */}
-      <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: -shiftX,
-            width: A4_W,
-            height: A4_H,
-            transform: `scale(${scale})`,
-            transformOrigin: 'top left',
-          }}
-        >
+      <div
+        style={{
+          position: 'absolute',
+          top,
+          left,
+          width:  A4_W * scale,
+          height: A4_H * scale,
+          overflow: 'hidden',
+        }}
+      >
+        <div style={{ width: A4_W, height: A4_H, transform: `scale(${scale})`, transformOrigin: 'top left' }}>
           <iframe
             src={src}
             title={title}
@@ -119,7 +123,6 @@ export default function PdfModal({ src, title, label, className = '', style }: P
         <FileText className="w-4 h-4 shrink-0" />
         {label ?? title}
       </button>
-
       {mounted && open && createPortal(overlay, document.body)}
     </>
   )
