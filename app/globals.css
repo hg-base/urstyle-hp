@@ -175,3 +175,9 @@ body {
     font-size: 0.875rem;
   }
 }
+
+.btn-primary:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}

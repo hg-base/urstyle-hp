@@ -61,7 +61,7 @@ export default function HeroSlider() {
   return (
     <section
       className="relative w-full overflow-hidden"
-      style={{ height: 'clamp(520px, 92vh, 900px)' }}
+      style={{ height: 'clamp(480px, 88svh, 900px)' }}
     >
       {/* Background with Ken Burns */}
       <div
@@ -98,7 +98,7 @@ export default function HeroSlider() {
           Urstyle Enterprise
         </p>
         <h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest leading-tight mb-5 whitespace-pre-line"
+          className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wide sm:tracking-widest leading-tight mb-5 whitespace-pre-line hero-heading"
           style={{ textShadow: '0 2px 24px rgba(0,0,0,0.5)' }}
         >
           {slides[index].heading}
@@ -106,19 +106,19 @@ export default function HeroSlider() {
         <p className="text-sm sm:text-base md:text-lg text-white/80 mb-10 tracking-wider max-w-xl">
           {slides[index].sub}
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
+        <div className="flex flex-col sm:flex-row gap-4 items-center w-full sm:w-auto">
           <Link
             href="https://forms.gle/RkNefMUiLMJBbRgV8"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary min-h-[44px]"
+            className="btn-primary min-h-[44px] w-full sm:w-auto justify-center"
           >
             お問い合わせ
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="/company"
-            className="btn-outline text-white border-white/50 hover:bg-white/10 min-h-[44px]"
+            className="btn-outline text-white border-white/50 hover:bg-white/10 min-h-[44px] w-full sm:w-auto justify-center"
           >
             会社概要を見る
           </Link>

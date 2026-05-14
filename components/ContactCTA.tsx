@@ -30,7 +30,7 @@ export default function ContactCTA() {
           href="https://forms.gle/RkNefMUiLMJBbRgV8"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary mx-auto"
+          className="btn-primary w-full sm:w-auto mx-auto"
         >
           お問い合わせフォーム
           <ArrowRight className="w-4 h-4" />

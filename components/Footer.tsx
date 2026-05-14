@@ -17,20 +17,17 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
           {/* Brand */}
-          <div>
+          <div className="text-center md:text-left">
             <Image
               src="/images/logo.webp"
               alt="URSTYLE ENTERPRISE"
               width={160}
               height={60}
-              className="mb-5 opacity-90"
+              className="mb-5 opacity-90 mx-auto md:mx-0"
             />
             <p className="text-xs text-white/50 leading-relaxed">
               〒222-0033<br />
               神奈川県横浜市港北区新横浜2丁目5-13-701
-            </p>
-            <p className="text-xs text-white/50 mt-2">
-              TEL: 045-557-8700
             </p>
           </div>
 

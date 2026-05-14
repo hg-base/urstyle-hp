@@ -145,7 +145,7 @@ export default function RecruitPage() {
           {/* CTA */}
           <AnimateOnScroll delay={3}>
             <div
-              className="mt-16 p-8 md:p-10 rounded text-center"
+              className="mt-16 p-6 sm:p-8 md:p-10 rounded text-center"
               style={{ background: 'var(--bg-alt)' }}
             >
               <p

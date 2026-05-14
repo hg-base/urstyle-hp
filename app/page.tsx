@@ -24,21 +24,21 @@ export default function HomePage() {
             <AnimateOnScroll delay={1}>
               <div>
                 <h2
-                  className="text-2xl md:text-3xl font-bold tracking-wide leading-snug mb-6"
+                  className="text-xl sm:text-2xl md:text-3xl font-bold tracking-wide leading-snug mb-6"
                   style={{ color: 'var(--text)' }}
                 >
                   軽貨物配送と大型家電設置で<br />
                   現場業務を支える会社です。
                 </h2>
                 <p
-                  className="text-base leading-relaxed mb-4"
+                  className="text-sm sm:text-base leading-relaxed mb-4"
                   style={{ color: 'var(--muted)' }}
                 >
                   ユアスタイル合同会社は、軽貨物配送および大型家電設置業務を行っています。
                   配送から設置まで、現場状況に応じた対応を行っています。
                 </p>
                 <p
-                  className="text-base leading-relaxed mb-10"
+                  className="text-sm sm:text-base leading-relaxed mb-10"
                   style={{ color: 'var(--muted)' }}
                 >
                   神奈川・東京を中心に、スピードと信頼をもってお客様のご要望にお応えします。
@@ -60,7 +60,7 @@ export default function HomePage() {
                         {s.value}
                       </div>
                       <div
-                        className="text-xs tracking-widest"
+                        className="text-[11px] tracking-wide"
                         style={{ color: 'var(--muted)' }}
                       >
                         {s.label}
@@ -91,7 +91,7 @@ export default function HomePage() {
           </div>
 
           <AnimateOnScroll delay={3}>
-            <div className="mt-10 grid grid-cols-3 gap-3">
+            <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-3">
               {[
                 { src: '/images/photo-02.webp', alt: '家電設置作業' },
                 { src: '/images/photo-03.webp', alt: '保有車両' },

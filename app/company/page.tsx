@@ -22,10 +22,6 @@ const rows: { label: string; value: string }[] = [
     value: '〒222-0033\n神奈川県横浜市港北区新横浜2丁目5-13-701',
   },
   {
-    label: '電話番号',
-    value: '045-557-8700\n（受付：月〜土 9:00〜17:00、日祝・年末年始除く）',
-  },
-  {
     label: '事業内容',
     value:
       '■ 貨物軽自動車運送事業\n■ 大型家電設置・住環境整備事業\n■ 自動車関連事業\n■ AIを活用したSaaSプロダクトの企画・開発・運営\n■ 軽貨物業務支援SaaS「K-LEDGE（ケイレジ）」の企画・開発・運営',
@@ -68,7 +64,7 @@ export default function CompanyPage() {
               {rows.map((row) => (
                 <div
                   key={row.label}
-                  className="grid grid-cols-1 sm:grid-cols-[180px_1fr] border-b py-5 gap-1 sm:gap-8"
+                  className="grid grid-cols-1 sm:grid-cols-[180px_1fr] border-b py-4 sm:py-5 gap-1 sm:gap-8"
                   style={{ borderColor: 'var(--border)' }}
                 >
                   <dt
