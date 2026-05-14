@@ -3,6 +3,8 @@ import PageHero from '@/components/PageHero'
 import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
+import PdfModal from '@/components/PdfModal'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink } from 'lucide-react'
 
@@ -93,28 +95,37 @@ export default function CompanyPage() {
                 borderLeftColor: 'var(--accent)',
               }}
             >
-              <h3
-                className="text-sm font-semibold tracking-wide mb-3"
-                style={{ color: 'var(--text)' }}
-              >
-                パートナーシップ構築宣言
-              </h3>
-              <p
-                className="text-sm leading-relaxed mb-4"
-                style={{ color: 'var(--muted)' }}
-              >
-                当社は、取引先様・協力会社様との連携強化、適正な取引の推進、共存共栄の実現を目的として、パートナーシップ構築宣言を公表しています。
-              </p>
-              <Link
-                href="https://drive.google.com/file/d/1Mr2xdhsHNHoS3fmM-Z1LCCT2DHrDpbGx/view?usp=drive_link"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70"
-                style={{ color: 'var(--accent)' }}
-              >
-                宣言書を見る
-                <ExternalLink className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+                <div className="shrink-0">
+                  <Image
+                    src="/images/photo-07.webp"
+                    alt="パートナーシップ構築宣言ロゴ"
+                    width={160}
+                    height={82}
+                    className="w-36 sm:w-40 h-auto"
+                  />
+                </div>
+                <div>
+                  <h3
+                    className="text-sm font-semibold tracking-wide mb-3"
+                    style={{ color: 'var(--text)' }}
+                  >
+                    パートナーシップ構築宣言
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed mb-4"
+                    style={{ color: 'var(--muted)' }}
+                  >
+                    当社は、取引先様・協力会社様との連携強化、適正な取引の推進、共存共栄の実現を目的として、パートナーシップ構築宣言を公表しています。
+                  </p>
+                  <PdfModal
+                    src="https://drive.google.com/file/d/1Mr2xdhsHNHoS3fmM-Z1LCCT2DHrDpbGx/preview"
+                    title="パートナーシップ構築宣言書"
+                    label="宣言書を見る"
+                    style={{ color: 'var(--accent)' }}
+                  />
+                </div>
+              </div>
             </div>
           </AnimateOnScroll>
 

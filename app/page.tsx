@@ -18,6 +18,7 @@ const recruitPhotos = [
   { src: '/images/photo-08.webp', alt: 'URSTYLEスタッフ', pos: 'object-top' },
   { src: '/images/photo-10.webp', alt: 'URSTYLEチーム', pos: 'object-top' },
   { src: '/images/photo-09.webp', alt: '現場作業スタッフ', pos: 'object-top' },
+  { src: '/images/photo-11.webp', alt: 'URSTYLEスタッフ', pos: 'object-top' },
 ]
 
 export default function HomePage() {
