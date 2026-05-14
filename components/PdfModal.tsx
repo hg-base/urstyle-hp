@@ -21,15 +21,14 @@ export default function PdfModal({ src, title, label, className = '', style }: P
   const [scale, setScale] = useState(1)
   const [mounted, setMounted] = useState(false)
 
-  // Wait for client mount before using createPortal
   useEffect(() => { setMounted(true) }, [])
 
   const calcScale = useCallback(() => {
-    const sidePad = 20
-    const topPad  = 64   // space for × button
-    const botPad  = 20
+    const sidePad = 12   // small margin on left/right
+    const btnArea = 80   // × button height at the top
+    const botPad  = 12
     const availW = window.innerWidth  - sidePad * 2
-    const availH = window.innerHeight - topPad - botPad
+    const availH = window.innerHeight - btnArea - botPad
     setScale(Math.min(availW / A4_W, availH / A4_H, 1))
   }, [])
 
@@ -60,61 +59,82 @@ export default function PdfModal({ src, title, label, className = '', style }: P
     }
   }, [open, calcScale])
 
-  // Rendered via createPortal so it escapes any CSS transform ancestor
-  // (AnimateOnScroll uses transform: translateY which would trap fixed children)
   const overlay = (
     <div
       style={{
         position:        'fixed',
-        inset:           0,
+        top:             0,
+        left:            0,
+        right:           0,
+        bottom:          0,
         zIndex:          9999,
         backgroundColor: '#000',
-        display:         'flex',
-        alignItems:      'center',
-        justifyContent:  'center',
+        overflow:        'hidden',
       }}
       onTouchMove={(e) => e.stopPropagation()}
     >
-      {/* × button — top-right, floating on black */}
+      {/* × button — top-right, floating */}
       <button
         type="button"
         onClick={() => setOpen(false)}
         aria-label="閉じる"
         style={{
-          position:        'absolute',
-          top:             16,
-          right:           16,
-          width:           48,
-          height:          48,
-          display:         'flex',
-          alignItems:      'center',
-          justifyContent:  'center',
-          borderRadius:    12,
-          backgroundColor: 'rgba(255,255,255,0.15)',
-          border:          'none',
-          cursor:          'pointer',
-          zIndex:          10000,
-          WebkitTapHighlightColor: 'transparent',
+          position:               'absolute',
+          top:                    16,
+          right:                  16,
+          width:                  48,
+          height:                 48,
+          display:                'flex',
+          alignItems:             'center',
+          justifyContent:         'center',
+          borderRadius:           12,
+          backgroundColor:        'rgba(255,255,255,0.15)',
+          border:                 'none',
+          cursor:                 'pointer',
+          zIndex:                 10000,
+          WebkitTapHighlightColor:'transparent',
         }}
       >
         <X style={{ width: 24, height: 24, color: '#fff' }} strokeWidth={2.5} />
       </button>
 
-      {/* PDF card — centered, scaled to fit 1 A4 page */}
-      <div style={{ width: A4_W * scale, height: A4_H * scale, flexShrink: 0 }}>
-        <iframe
-          src={src}
-          title={title}
+      {/*
+        PDF card: absolute-centering with translate is the most reliable
+        cross-browser approach — avoids flex height calculation issues.
+        Outer div reserves the scaled footprint; inner div is A4 size then
+        CSS-scaled to avoid rendering at low resolution.
+      */}
+      <div
+        style={{
+          position:  'absolute',
+          top:       '50%',
+          left:      '50%',
+          transform: 'translate(-50%, -50%)',
+          width:     A4_W * scale,
+          height:    A4_H * scale,
+          overflow:  'hidden',
+        }}
+      >
+        <div
           style={{
             width:           A4_W,
             height:          A4_H,
-            border:          'none',
-            display:         'block',
             transform:       `scale(${scale})`,
             transformOrigin: 'top left',
           }}
-          allow="fullscreen"
-        />
+        >
+          <iframe
+            src={src}
+            title={title}
+            style={{
+              width:   '100%',
+              height:  '100%',
+              border:  'none',
+              display: 'block',
+            }}
+            allow="fullscreen"
+          />
+        </div>
       </div>
     </div>
   )
@@ -131,7 +151,6 @@ export default function PdfModal({ src, title, label, className = '', style }: P
         {label ?? title}
       </button>
 
-      {/* Portal bypasses the transform stacking context of AnimateOnScroll */}
       {mounted && open && createPortal(overlay, document.body)}
     </>
   )
