@@ -10,17 +10,14 @@ const A4_H = 1123
 type Layout = { scale: number; top: number; left: number }
 
 function calcLayout(): Layout {
-  const pad    = 12
-  const btnH   = 64
-  const availW = window.innerWidth  - pad * 2
-  const availH = window.innerHeight - btnH - pad
-  const scale  = Math.min(availW / A4_W, availH / A4_H, 1)
-  const pdfW   = A4_W * scale
-  const pdfH   = A4_H * scale
+  const sidePad = 16
+  const btnH    = 64
+  const scale   = Math.min((window.innerWidth - sidePad * 2) / A4_W, 1)
+  const pdfW    = A4_W * scale
   return {
     scale,
-    left: (window.innerWidth  - pdfW) / 2,
-    top:  btnH + (availH - pdfH) / 2,
+    left: (window.innerWidth - pdfW) / 2,
+    top:  btnH + 8,   // PDFは上から、下に黒余白
   }
 }
 
