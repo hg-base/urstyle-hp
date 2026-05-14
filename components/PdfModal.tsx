@@ -37,8 +37,8 @@ export default function PdfModal({ src, title, label, className = '', style }: P
 
       {open && (
         <div
-          className="fixed inset-0 z-[200] flex flex-col"
-          style={{ background: 'rgba(0,0,0,0.92)' }}
+          className="fixed inset-x-0 top-0 z-[200] flex flex-col"
+          style={{ height: '100dvh', background: 'rgba(0,0,0,0.92)' }}
         >
           {/* Header bar */}
           <div className="flex items-center justify-between bg-white px-4 sm:px-6 shrink-0 shadow-md" style={{ minHeight: '56px' }}>
@@ -60,7 +60,7 @@ export default function PdfModal({ src, title, label, className = '', style }: P
           <iframe
             src={src}
             title={title}
-            className="flex-1 w-full border-0 block"
+            className="flex-1 w-full border-0 block min-h-0"
             allow="fullscreen"
           />
         </div>
