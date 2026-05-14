@@ -20,9 +20,13 @@ const navLinks = [
   },
 ]
 
+// Section IDs that correspond to anchor nav links on the homepage
+const SECTIONS = ['about', 'services']
+
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState('')
   const pathname = usePathname()
 
   useEffect(() => {
@@ -36,9 +40,34 @@ export default function Header() {
     setOpen(false)
   }, [pathname])
 
+  // Scroll-spy: track which section is currently in view
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection('')
+      return
+    }
+
+    const update = () => {
+      const offset = window.scrollY + 100 // header height buffer
+      let current = ''
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id)
+        if (el && el.offsetTop <= offset) current = id
+      }
+      setActiveSection(current)
+    }
+
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [pathname])
+
   const isActive = (href: string) => {
-    if (href.includes('#') || href.startsWith('http')) return false
-    if (href === '/') return pathname === '/'
+    if (href.startsWith('http')) return false
+    if (href === '/#about') return pathname === '/' && activeSection === 'about'
+    if (href === '/#services') return pathname === '/' && activeSection === 'services'
+    if (href.includes('#')) return false
+    if (href === '/') return pathname === '/' && activeSection === ''
     return pathname.startsWith(href)
   }
 
@@ -75,7 +104,7 @@ export default function Header() {
                 {...(l.external
                   ? { target: '_blank', rel: 'noopener noreferrer' }
                   : {})}
-                className={`${l.href.includes('#') ? '' : 'nav-link'} text-sm px-3 py-2 tracking-wide transition-colors ${
+                className={`nav-link text-sm px-3 py-2 tracking-wide transition-colors ${
                   isActive(l.href)
                     ? 'active text-white'
                     : l.external
