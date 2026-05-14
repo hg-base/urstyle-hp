@@ -55,13 +55,13 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link href="/" className="shrink-0">
+          <Link href="/" className="shrink-0 min-h-[44px] flex items-center">
             <Image
               src="/images/logo.webp"
               alt="URSTYLE ENTERPRISE"
               width={148}
               height={56}
-              className="h-9 w-auto md:h-11"
+              className="h-8 w-auto sm:h-9 md:h-11"
               priority
             />
           </Link>
@@ -109,7 +109,7 @@ export default function Header() {
           backdropFilter: 'blur(10px)',
         }}
       >
-        <nav className="flex flex-col px-4 pb-5 pt-1 gap-0.5">
+        <nav className="flex flex-col px-4 pb-6 pt-2 gap-0">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -117,7 +117,13 @@ export default function Header() {
               {...(l.external
                 ? { target: '_blank', rel: 'noopener noreferrer' }
                 : {})}
-              className="text-sm text-white/80 hover:text-white px-3 py-4 tracking-wide transition-colors border-b border-white/5 last:border-0"
+              className={`text-sm px-3 py-4 tracking-wide transition-colors border-b border-white/5 last:border-0 min-h-[44px] flex items-center ${
+                isActive(l.href)
+                  ? 'text-white font-medium'
+                  : l.external
+                  ? 'text-white/80 hover:text-[var(--accent-hover)]'
+                  : 'text-white/80 hover:text-white'
+              }`}
               onClick={() => setOpen(false)}
             >
               {l.label}

@@ -75,8 +75,8 @@ export default function HomePage() {
               <div className="relative">
                 <div className="aspect-[4/3] rounded overflow-hidden shadow-xl">
                   <Image
-                    src="/images/photo-02.webp"
-                    alt="ユアスタイル 業務風景"
+                    src="/images/photo-10.webp"
+                    alt="ユアスタイル スタッフ"
                     fill
                     className="object-cover"
                     sizes="(max-width: 1024px) 100vw, 50vw"
@@ -89,6 +89,29 @@ export default function HomePage() {
               </div>
             </AnimateOnScroll>
           </div>
+
+          <AnimateOnScroll delay={3}>
+            <div className="mt-10 grid grid-cols-3 gap-3">
+              {[
+                { src: '/images/photo-02.webp', alt: '家電設置作業' },
+                { src: '/images/photo-03.webp', alt: '保有車両' },
+                { src: '/images/photo-04.webp', alt: '配送スタッフ' },
+              ].map((img) => (
+                <div
+                  key={img.src}
+                  className="aspect-[4/3] rounded overflow-hidden shadow-sm relative"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 33vw, 20vw"
+                  />
+                </div>
+              ))}
+            </div>
+          </AnimateOnScroll>
         </div>
       </section>
 
@@ -103,112 +126,102 @@ export default function HomePage() {
             <SectionTitle title="事業内容" label="02 / Services" />
           </AnimateOnScroll>
 
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Service 1 */}
+          {/* Service 1 - テキスト左 + 画像右 */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             <AnimateOnScroll delay={1}>
-              <div className="bg-white rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-                <div className="relative aspect-[16/9]">
-                  <Image
-                    src="/images/photo-05.webp"
-                    alt="軽貨物配送"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-black/25" />
+              <div>
+                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="absolute top-4 left-4 w-11 h-11 rounded-full flex items-center justify-center"
+                    className="w-10 h-10 rounded flex items-center justify-center shrink-0"
                     style={{ background: 'var(--accent)' }}
                   >
                     <Truck className="w-5 h-5 text-white" />
                   </div>
-                </div>
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
                   <h3
-                    className="text-xl font-bold tracking-wide mb-3"
+                    className="text-xl md:text-2xl font-bold tracking-wide"
                     style={{ color: 'var(--text)' }}
                   >
                     貨物軽自動車運送
                   </h3>
-                  <p
-                    className="text-sm leading-relaxed mb-5"
-                    style={{ color: 'var(--muted)' }}
-                  >
-                    軽貨物車両による配送業務を行っています。宅配やスポット配送など、現場状況に応じた対応を行っています。
-                  </p>
-                  <ul
-                    className="text-sm space-y-2 mt-auto"
-                    style={{ color: 'var(--muted)' }}
-                  >
-                    {[
-                      'EC・宅配便配送',
-                      'スポット・ルート配送',
-                      '神奈川・東京エリア対応',
-                    ].map((item) => (
-                      <li key={item} className="flex items-center gap-2.5">
-                        <span
-                          className="w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{ background: 'var(--accent)' }}
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
+                <p
+                  className="text-sm leading-relaxed mb-5"
+                  style={{ color: 'var(--muted)' }}
+                >
+                  軽貨物車両による配送業務を行っています。宅配やスポット配送など、現場状況に応じた対応を行っています。
+                </p>
+                <ul className="text-sm space-y-2" style={{ color: 'var(--muted)' }}>
+                  {['EC・宅配便配送', 'スポット・ルート配送', '神奈川・東京エリア対応'].map((item) => (
+                    <li key={item} className="flex items-center gap-2.5">
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ background: 'var(--accent)' }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </AnimateOnScroll>
-
-            {/* Service 2 */}
             <AnimateOnScroll delay={2}>
-              <div className="bg-white rounded shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
-                <div className="relative aspect-[16/9]">
-                  <Image
-                    src="/images/photo-08.webp"
-                    alt="大型家電設置"
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-black/25" />
+              <div className="relative aspect-[4/3] rounded overflow-hidden shadow-lg">
+                <Image
+                  src="/images/photo-05.webp"
+                  alt="軽貨物配送"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </AnimateOnScroll>
+          </div>
+
+          {/* Service 2 - 画像左 + テキスト右 */}
+          <div className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+            <AnimateOnScroll delay={1}>
+              <div className="relative aspect-[4/3] rounded overflow-hidden shadow-lg order-2 md:order-1">
+                <Image
+                  src="/images/photo-06.webp"
+                  alt="大型家電設置"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            </AnimateOnScroll>
+            <AnimateOnScroll delay={2}>
+              <div className="order-1 md:order-2">
+                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="absolute top-4 left-4 w-11 h-11 rounded-full flex items-center justify-center"
+                    className="w-10 h-10 rounded flex items-center justify-center shrink-0"
                     style={{ background: 'var(--accent)' }}
                   >
                     <Tv className="w-5 h-5 text-white" />
                   </div>
-                </div>
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
                   <h3
-                    className="text-xl font-bold tracking-wide mb-3"
+                    className="text-xl md:text-2xl font-bold tracking-wide"
                     style={{ color: 'var(--text)' }}
                   >
                     大型家電の設置・据え付け
                   </h3>
-                  <p
-                    className="text-sm leading-relaxed mb-5"
-                    style={{ color: 'var(--muted)' }}
-                  >
-                    引越しに伴う洗濯機などの大型家電設置を行っています。接続作業や動作確認まで丁寧に対応します。
-                  </p>
-                  <ul
-                    className="text-sm space-y-2 mt-auto"
-                    style={{ color: 'var(--muted)' }}
-                  >
-                    {[
-                      '洗濯機・冷蔵庫の設置',
-                      '接続・動作確認まで対応',
-                      '東京都・神奈川県対応',
-                    ].map((item) => (
-                      <li key={item} className="flex items-center gap-2.5">
-                        <span
-                          className="w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{ background: 'var(--accent)' }}
-                        />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
+                <p
+                  className="text-sm leading-relaxed mb-5"
+                  style={{ color: 'var(--muted)' }}
+                >
+                  引越しに伴う洗濯機などの大型家電設置を行っています。接続作業や動作確認まで丁寧に対応します。
+                </p>
+                <ul className="text-sm space-y-2" style={{ color: 'var(--muted)' }}>
+                  {['洗濯機・冷蔵庫の設置', '接続・動作確認まで対応', '東京都・神奈川県対応'].map((item) => (
+                    <li key={item} className="flex items-center gap-2.5">
+                      <span
+                        className="w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ background: 'var(--accent)' }}
+                      />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </AnimateOnScroll>
           </div>

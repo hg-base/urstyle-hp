@@ -16,7 +16,7 @@ export default function CompanyInfoBar() {
     <div className="bg-[#1a1a1a] text-white overflow-hidden">
       <div className="flex items-center">
         <div
-          className="shrink-0 bg-[var(--accent)] px-5 py-4 text-sm font-semibold tracking-widest z-10"
+          className="shrink-0 bg-[var(--accent)] px-4 sm:px-5 py-3 sm:py-4 text-xs sm:text-sm font-semibold tracking-widest z-10"
           style={{ minWidth: 'fit-content' }}
         >
           会社情報
@@ -26,7 +26,7 @@ export default function CompanyInfoBar() {
             {items.map((item, i) => (
               <span
                 key={i}
-                className="inline-block text-sm text-white/80 px-8 py-4 border-r border-white/10 shrink-0"
+                className="inline-block text-xs sm:text-sm text-white/80 px-5 sm:px-8 py-3 sm:py-4 border-r border-white/10 shrink-0"
               >
                 {item}
               </span>
