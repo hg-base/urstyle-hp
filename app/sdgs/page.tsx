@@ -29,7 +29,7 @@ export default function SdgsPage() {
 
           <AnimateOnScroll delay={1}>
             <p
-              className="mt-8 text-base leading-relaxed text-center max-w-2xl mx-auto mb-14"
+              className="mt-10 md:mt-12 text-base leading-relaxed text-center max-w-2xl mx-auto mb-14"
               style={{ color: 'var(--muted)' }}
             >
               ユアスタイル合同会社は、持続可能な社会の実現に向けて、

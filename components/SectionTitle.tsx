@@ -6,7 +6,7 @@ type Props = {
 
 export default function SectionTitle({ title, label, light = false }: Props) {
   return (
-    <div className="text-center mb-12 md:mb-16">
+    <div className="text-center mb-10 md:mb-14">
       {label && (
         <p
           className={`text-[10px] tracking-[0.35em] uppercase font-medium mb-3 ${

@@ -165,7 +165,7 @@ export default function RecruitPage() {
                   href="https://en-gage.net/urstyle-recruit/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary min-h-[44px]"
+                  className="btn-primary min-h-[44px] w-full sm:w-auto justify-center"
                 >
                   募集要項を見る（エンゲージ）
                   <ArrowRight className="w-4 h-4" />
@@ -174,7 +174,7 @@ export default function RecruitPage() {
                   href="https://forms.gle/RkNefMUiLMJBbRgV8"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-outline min-h-[44px]"
+                  className="btn-outline min-h-[44px] w-full sm:w-auto justify-center"
                   style={{ color: 'var(--text)' }}
                 >
                   お問い合わせフォーム

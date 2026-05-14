@@ -20,7 +20,7 @@ export default function HomePage() {
             <SectionTitle title="私たちについて" label="01 / About" />
           </AnimateOnScroll>
 
-          <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="mt-12 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <AnimateOnScroll delay={1}>
               <div>
                 <h2
@@ -44,7 +44,7 @@ export default function HomePage() {
                   神奈川・東京を中心に、スピードと信頼をもってお客様のご要望にお応えします。
                 </p>
                 <div
-                  className="grid grid-cols-3 gap-4 pt-6 border-t"
+                  className="grid grid-cols-3 gap-2 sm:gap-4 pt-6 border-t"
                   style={{ borderColor: 'var(--border)' }}
                 >
                   {[
@@ -54,13 +54,13 @@ export default function HomePage() {
                   ].map((s) => (
                     <div key={s.label} className="text-center">
                       <div
-                        className="text-xl sm:text-2xl font-bold mb-1"
+                        className="text-sm sm:text-2xl font-bold mb-1 whitespace-nowrap"
                         style={{ color: 'var(--accent)' }}
                       >
                         {s.value}
                       </div>
                       <div
-                        className="text-[11px] tracking-wide"
+                        className="text-[10px] sm:text-[11px] tracking-wide"
                         style={{ color: 'var(--muted)' }}
                       >
                         {s.label}
@@ -78,7 +78,7 @@ export default function HomePage() {
                     src="/images/photo-10.webp"
                     alt="ユアスタイル スタッフ"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                   />
                 </div>
@@ -105,7 +105,7 @@ export default function HomePage() {
                     src={img.src}
                     alt={img.alt}
                     fill
-                    className="object-cover"
+                    className={`object-cover ${img.src !== '/images/photo-03.webp' ? 'object-top' : 'object-center'}`}
                     sizes="(max-width: 768px) 33vw, 20vw"
                   />
                 </div>
@@ -127,7 +127,7 @@ export default function HomePage() {
           </AnimateOnScroll>
 
           {/* Service 1 - テキスト左 + 画像右 */}
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+          <div className="mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             <AnimateOnScroll delay={1}>
               <div>
                 <div className="flex items-center gap-3 mb-4">
@@ -169,7 +169,7 @@ export default function HomePage() {
                   src="/images/photo-05.webp"
                   alt="軽貨物配送"
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
@@ -177,20 +177,21 @@ export default function HomePage() {
           </div>
 
           {/* Service 2 - 画像左 + テキスト右 */}
+          {/* AnimateOnScrollにorder-*を付与してgrid childとして正しく機能させる */}
           <div className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
-            <AnimateOnScroll delay={1}>
-              <div className="relative aspect-[4/3] rounded overflow-hidden shadow-lg order-2 md:order-1">
+            <AnimateOnScroll delay={1} className="order-2 md:order-1">
+              <div className="relative aspect-[4/3] rounded overflow-hidden shadow-lg">
                 <Image
                   src="/images/photo-06.webp"
                   alt="大型家電設置"
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </AnimateOnScroll>
-            <AnimateOnScroll delay={2}>
-              <div className="order-1 md:order-2">
+            <AnimateOnScroll delay={2} className="order-1 md:order-2">
+              <div>
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className="w-10 h-10 rounded flex items-center justify-center shrink-0"
@@ -232,7 +233,7 @@ export default function HomePage() {
                 href="https://forms.gle/RkNefMUiLMJBbRgV8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary"
+                className="btn-primary min-h-[44px] w-full sm:w-auto justify-center"
               >
                 業務のご依頼・ご相談はこちら
                 <ArrowRight className="w-4 h-4" />
@@ -249,7 +250,7 @@ export default function HomePage() {
             <SectionTitle title="採用情報" label="03 / Recruit" />
           </AnimateOnScroll>
           <AnimateOnScroll delay={1}>
-            <div className="mt-12 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+            <div className="mt-10 md:mt-12 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
               <p
                 className="text-sm sm:text-base leading-relaxed max-w-xl"
                 style={{ color: 'var(--muted)' }}
@@ -292,7 +293,7 @@ export default function HomePage() {
                     src={img.src}
                     alt={img.alt}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                     sizes="(max-width: 640px) 100vw, 33vw"
                   />
                 </div>
@@ -322,7 +323,7 @@ export default function HomePage() {
             <AnimateOnScroll delay={1}>
               <Link
                 href="/sdgs"
-                className="btn-outline text-white border-white/30 hover:bg-white/10 shrink-0 min-h-[44px]"
+                className="btn-outline text-white border-white/30 hover:bg-white/10 shrink-0 min-h-[44px] justify-center"
               >
                 詳しく見る
                 <ArrowRight className="w-4 h-4" />

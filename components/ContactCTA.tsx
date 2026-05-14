@@ -16,8 +16,8 @@ export default function ContactCTA() {
         <h2 className="text-2xl md:text-3xl font-bold tracking-widest mb-4">
           お問い合わせ
         </h2>
-        <div className="section-divider bg-white! mx-auto mb-8" />
-        <p className="text-sm md:text-base text-white/85 mb-2">
+        <div className="section-divider bg-white! mx-auto" />
+        <p className="text-sm md:text-base text-white/85 mt-8 mb-2">
           配送業務や大型家電設置のご相談など、
         </p>
         <p className="text-sm md:text-base text-white/85 mb-2">
@@ -30,7 +30,7 @@ export default function ContactCTA() {
           href="https://forms.gle/RkNefMUiLMJBbRgV8"
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-primary w-full sm:w-auto mx-auto"
+          className="btn-primary min-h-[44px] w-full sm:w-auto mx-auto justify-center"
         >
           お問い合わせフォーム
           <ArrowRight className="w-4 h-4" />
