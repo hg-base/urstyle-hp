@@ -10,18 +10,17 @@ const A4_H = 1123
 type Layout = { scale: number; top: number; left: number }
 
 function calcLayout(): Layout {
-  const sidePad = 12
-  const btnArea = 80   // height reserved for × button
-  const botPad  = 12
-  const availW  = window.innerWidth  - sidePad * 2
-  const availH  = window.innerHeight - btnArea - botPad
-  const scale   = Math.min(availW / A4_W, availH / A4_H, 1)
-  const pdfW    = A4_W * scale
-  const pdfH    = A4_H * scale
+  const sidePad  = 8
+  const btnArea  = 72
+  const scaleByW = (window.innerWidth - sidePad * 2) / A4_W
+  const scaleByH = (window.innerHeight - btnArea - 16) / A4_H
+  const scale    = Math.min(scaleByW, scaleByH, 1)
+  const pdfW     = A4_W * scale
+  const pdfH     = A4_H * scale
   return {
     scale,
-    top:  Math.max(btnArea, (window.innerHeight - pdfH) / 2),  // true screen center
-    left: (window.innerWidth - pdfW) / 2,  // horizontally centered
+    top:  Math.max(btnArea, (window.innerHeight - pdfH) / 2),
+    left: (window.innerWidth - pdfW) / 2,
   }
 }
 
