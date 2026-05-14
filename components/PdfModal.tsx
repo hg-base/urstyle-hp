@@ -20,7 +20,7 @@ function calcLayout(): Layout {
   const pdfH    = A4_H * scale
   return {
     scale,
-    top:  btnArea + (availH - pdfH) / 2,   // vertically centered in usable area
+    top:  Math.max(btnArea, (window.innerHeight - pdfH) / 2),  // true screen center
     left: (window.innerWidth - pdfW) / 2,  // horizontally centered
   }
 }
