@@ -1,4 +1,36 @@
+import type { Metadata } from 'next'
 import HeroSlider from '@/components/HeroSlider'
+
+export const metadata: Metadata = {
+  title: '軽貨物配送・大型家電設置 | ユアスタイル合同会社',
+  description:
+    '神奈川・東京エリアの軽貨物配送と大型家電設置はユアスタイル合同会社へ。相模原・平塚・横浜・大和・厚木エリア対応。EC・宅配便配送から洗濯機・冷蔵庫設置まで、スピードと信頼でサポートします。',
+  keywords: [
+    '軽貨物配送 神奈川',
+    '家電設置 神奈川',
+    '洗濯機設置 相模原',
+    '冷蔵庫設置 横浜',
+    '大型家電設置 厚木',
+    '軽貨物ドライバー 募集',
+    'ユアスタイル合同会社',
+  ],
+  alternates: { canonical: 'https://urstyle-ent.com' },
+  openGraph: {
+    title: '軽貨物配送・大型家電設置 | ユアスタイル合同会社',
+    description:
+      '神奈川・東京エリアの軽貨物配送と大型家電設置はユアスタイル合同会社へ。',
+    url: 'https://urstyle-ent.com',
+    images: [
+      {
+        url: '/images/hero-bg.png',
+        width: 2149,
+        height: 1299,
+        alt: 'ユアスタイル合同会社 - 軽貨物配送・大型家電設置',
+      },
+    ],
+  },
+}
+
 import CompanyInfoBar from '@/components/CompanyInfoBar'
 import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'

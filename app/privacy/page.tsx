@@ -1,15 +1,24 @@
 import type { Metadata } from 'next'
 import PageHero from '@/components/PageHero'
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー',
   description:
-    'ユアスタイル合同会社のプライバシーポリシーページです。個人情報の取り扱いについてご確認いただけます。',
+    'ユアスタイル合同会社のプライバシーポリシー。個人情報の収集・利用目的・第三者提供・開示請求等の取り扱いについてご確認いただけます。',
+  alternates: { canonical: 'https://urstyle-ent.com/privacy' },
+  robots: { index: false, follow: false },
 }
 
 export default function PrivacyPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'ホーム', url: 'https://urstyle-ent.com' },
+          { name: 'プライバシーポリシー', url: 'https://urstyle-ent.com/privacy' },
+        ]}
+      />
       <PageHero title="プライバシーポリシー" subtitle="Privacy Policy" />
 
       <article className="py-20 md:py-28 bg-white">

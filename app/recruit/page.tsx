@@ -3,13 +3,45 @@ import PageHero from '@/components/PageHero'
 import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: '採用情報',
   description:
-    'ユアスタイル合同会社の採用情報ページです。軽貨物ドライバー・家電設置スタッフを募集しています。',
+    'ユアスタイル合同会社では軽貨物ドライバー・大型家電設置スタッフを募集中。未経験歓迎・安定案件。神奈川（相模原・横浜・厚木）・東京エリアで働きたい方はぜひご応募ください。',
+  keywords: [
+    '軽貨物ドライバー 募集 神奈川',
+    '家電設置 スタッフ 募集',
+    '軽貨物 求人 相模原',
+    '軽貨物 求人 横浜',
+    '軽貨物 未経験',
+    'ユアスタイル 採用',
+    '配送 ドライバー 求人',
+  ],
+  alternates: { canonical: 'https://urstyle-ent.com/recruit' },
+  openGraph: {
+    title: '採用情報 | ユアスタイル合同会社',
+    description:
+      '軽貨物ドライバー・大型家電設置スタッフ募集中。未経験歓迎・神奈川（相模原・横浜・厚木）・東京エリア。',
+    url: 'https://urstyle-ent.com/recruit',
+    images: [
+      {
+        url: '/images/photo-08.webp',
+        width: 1200,
+        height: 800,
+        alt: 'ユアスタイル合同会社スタッフ',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '採用情報 | ユアスタイル合同会社',
+    description:
+      '軽貨物ドライバー・大型家電設置スタッフ募集中。未経験歓迎・神奈川（相模原・横浜・厚木）・東京エリア。',
+    images: ['/images/photo-08.webp'],
+  },
 }
 
 const features = [
@@ -23,6 +55,12 @@ const features = [
 export default function RecruitPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'ホーム', url: 'https://urstyle-ent.com' },
+          { name: '採用情報', url: 'https://urstyle-ent.com/recruit' },
+        ]}
+      />
       <PageHero title="採用情報" subtitle="Recruitment" />
 
       {/* Intro */}

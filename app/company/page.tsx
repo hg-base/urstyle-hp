@@ -4,6 +4,7 @@ import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
 import PdfModal from '@/components/PdfModal'
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ExternalLink } from 'lucide-react'
@@ -11,7 +12,38 @@ import { ExternalLink } from 'lucide-react'
 export const metadata: Metadata = {
   title: '会社概要',
   description:
-    'ユアスタイル合同会社の会社概要ページです。所在地・創業・事業内容・保有車両など詳細をご確認いただけます。',
+    'ユアスタイル合同会社の会社概要ページ。横浜市港北区新横浜を拠点に、神奈川・東京で軽貨物配送・大型家電設置を展開。貨物軽自動車運送事業者（神運輸証第216号）。',
+  keywords: [
+    'ユアスタイル合同会社 会社概要',
+    '軽貨物 会社 神奈川',
+    '貨物軽自動車運送事業者',
+    '神運輸証',
+    '横浜市港北区',
+    '新横浜',
+    'ユアスタイル 郡司',
+  ],
+  alternates: { canonical: 'https://urstyle-ent.com/company' },
+  openGraph: {
+    title: '会社概要 | ユアスタイル合同会社',
+    description:
+      'ユアスタイル合同会社の会社概要。横浜市港北区新横浜を拠点に、神奈川・東京で軽貨物配送・大型家電設置を展開。',
+    url: 'https://urstyle-ent.com/company',
+    images: [
+      {
+        url: '/images/photo-10.webp',
+        width: 1200,
+        height: 800,
+        alt: 'ユアスタイル合同会社スタッフ',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '会社概要 | ユアスタイル合同会社',
+    description:
+      'ユアスタイル合同会社の会社概要。横浜市港北区新横浜を拠点に、神奈川・東京で軽貨物配送・大型家電設置を展開。',
+    images: ['/images/photo-10.webp'],
+  },
 }
 
 const rows: { label: string; value: string }[] = [
@@ -50,6 +82,12 @@ const rows: { label: string; value: string }[] = [
 export default function CompanyPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'ホーム', url: 'https://urstyle-ent.com' },
+          { name: '会社概要', url: 'https://urstyle-ent.com/company' },
+        ]}
+      />
       <PageHero title="会社概要" subtitle="Company Profile" />
 
       <section className="py-20 md:py-28 bg-white">

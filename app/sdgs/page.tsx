@@ -5,17 +5,53 @@ import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
 import SdgsAccordion from '@/components/SdgsAccordion'
 import PdfModal from '@/components/PdfModal'
+import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'SDGsへの取り組み',
   description:
-    'ユアスタイル合同会社のSDGsへの取り組みページです。目標8・11・12・13に対する具体的な取り組みをご紹介します。',
+    'ユアスタイル合同会社のSDGs取り組み。かながわSDGsパートナー登録。目標8（働きがい）・11（まちづくり）・12（つくる責任）・13（気候変動）に向けた軽貨物・家電設置事業での具体的な活動。',
+  keywords: [
+    'ユアスタイル SDGs',
+    'かながわSDGsパートナー',
+    '軽貨物 SDGs',
+    '持続可能な物流',
+    '神奈川 SDGs 企業',
+  ],
+  alternates: { canonical: 'https://urstyle-ent.com/sdgs' },
+  openGraph: {
+    title: 'SDGsへの取り組み | ユアスタイル合同会社',
+    description:
+      'かながわSDGsパートナー登録。目標8・11・12・13に向けた軽貨物・家電設置事業での取り組み。',
+    url: 'https://urstyle-ent.com/sdgs',
+    images: [
+      {
+        url: '/images/hero-bg.webp',
+        width: 1920,
+        height: 1080,
+        alt: 'ユアスタイル合同会社 SDGsへの取り組み',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SDGsへの取り組み | ユアスタイル合同会社',
+    description:
+      'かながわSDGsパートナー登録。目標8・11・12・13に向けた軽貨物・家電設置事業での取り組み。',
+    images: ['/images/hero-bg.webp'],
+  },
 }
 
 export default function SdgsPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'ホーム', url: 'https://urstyle-ent.com' },
+          { name: 'SDGsへの取り組み', url: 'https://urstyle-ent.com/sdgs' },
+        ]}
+      />
       <PageHero
         title="SDGsへの取り組み"
         subtitle="Sustainable Development Goals"
