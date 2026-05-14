@@ -17,7 +17,7 @@ export default function HomePage() {
       <section id="about" className="py-20 md:py-28 lg:py-36 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
-            <SectionTitle title="私たちについて" />
+            <SectionTitle title="私たちについて" label="01 / About" />
           </AnimateOnScroll>
 
           <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -100,7 +100,7 @@ export default function HomePage() {
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
-            <SectionTitle title="事業内容" />
+            <SectionTitle title="事業内容" label="02 / Services" />
           </AnimateOnScroll>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -233,7 +233,7 @@ export default function HomePage() {
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
-            <SectionTitle title="採用情報" />
+            <SectionTitle title="採用情報" label="03 / Recruit" />
           </AnimateOnScroll>
           <AnimateOnScroll delay={1}>
             <div className="mt-12 text-center max-w-2xl mx-auto">
@@ -282,7 +282,7 @@ export default function HomePage() {
                   Sustainability
                 </p>
                 <h2 className="text-2xl md:text-3xl font-bold text-white tracking-wide mb-3">
-                  SDGsへの取組
+                  SDGsへの取り組み
                 </h2>
                 <p className="text-sm text-white/60 max-w-md leading-relaxed">
                   ユアスタイルは持続可能な社会の実現に向けて、事業活動を通じてSDGsの目標達成に取り組んでいます。

@@ -43,7 +43,6 @@ const rows: { label: string; value: string }[] = [
     label: 'インボイス登録番号',
     value: 'T1021003016807\n（適格請求書発行事業者）',
   },
-  { label: 'メールアドレス', value: 'apps@urstyle-ent.com' },
 ]
 
 export default function CompanyPage() {
@@ -54,7 +53,7 @@ export default function CompanyPage() {
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
-            <SectionTitle title="会社情報" />
+            <SectionTitle title="会社情報" label="Company Profile" />
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={1}>

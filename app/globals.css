@@ -86,10 +86,16 @@ body {
 
 /* Section divider */
 .section-divider {
-  width: 32px;
+  width: 28px;
   height: 2px;
   background: var(--accent);
-  margin: 12px auto 0;
+  margin: 14px auto 0;
+}
+
+/* Company table row hover */
+.company-row:hover dt,
+.company-row:hover dd {
+  color: var(--text);
 }
 
 /* Accordion */

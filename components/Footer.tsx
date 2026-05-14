@@ -7,7 +7,7 @@ const navLinks = [
   { label: '事業内容', href: '/#services' },
   { label: '会社概要', href: '/company' },
   { label: '採用情報', href: '/recruit' },
-  { label: 'SDGsへの取組', href: '/sdgs' },
+  { label: 'SDGsへの取り組み', href: '/sdgs' },
   { label: 'お問い合わせ', href: 'https://forms.gle/RkNefMUiLMJBbRgV8', external: true },
 ]
 

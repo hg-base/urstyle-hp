@@ -3,7 +3,6 @@ import PageHero from '@/components/PageHero'
 import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
-import RecruitCarousel from '@/components/RecruitCarousel'
 import Link from 'next/link'
 import { ArrowRight, CheckCircle } from 'lucide-react'
 
@@ -26,25 +25,38 @@ export default function RecruitPage() {
     <>
       <PageHero title="採用情報" subtitle="Recruitment" />
 
-      {/* Photo carousel */}
-      <section className="pt-16 md:pt-20" style={{ background: 'var(--bg-alt)' }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Intro */}
+      <section className="py-16 md:py-20" style={{ background: 'var(--bg-alt)' }}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <AnimateOnScroll>
-            <SectionTitle title="スタッフ・現場紹介" />
+            <p className="text-[10px] tracking-[0.35em] uppercase font-medium text-[var(--muted)] mb-3">
+              Join Us
+            </p>
+            <h2
+              className="text-2xl md:text-3xl font-bold tracking-wide mb-6"
+              style={{ color: 'var(--dark)' }}
+            >
+              一緒に現場を支えるメンバーを<br className="hidden sm:inline" />募集しています
+            </h2>
+          </AnimateOnScroll>
+          <AnimateOnScroll delay={1}>
+            <p
+              className="text-sm md:text-base leading-relaxed max-w-xl mx-auto"
+              style={{ color: 'var(--muted)' }}
+            >
+              ユアスタイル合同会社は、軽貨物配送と大型家電設置を通じて、
+              お客様の生活を支える仕事をしています。
+              未経験でも丁寧にサポートしますので、まずはお気軽にお問い合わせください。
+            </p>
           </AnimateOnScroll>
         </div>
-        <AnimateOnScroll>
-          <div className="mt-10 pb-10">
-            <RecruitCarousel />
-          </div>
-        </AnimateOnScroll>
       </section>
 
       {/* Job description */}
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
-            <SectionTitle title="募集について" />
+            <SectionTitle title="募集について" label="Positions" />
           </AnimateOnScroll>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-12">

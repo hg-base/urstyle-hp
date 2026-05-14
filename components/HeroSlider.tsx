@@ -94,9 +94,9 @@ export default function HeroSlider() {
           transition: `opacity ${FADE_HALF}ms ease, transform ${FADE_HALF}ms ease`,
         }}
       >
-        <div className="inline-block bg-[var(--accent)] text-xs text-white tracking-[0.25em] px-4 py-1.5 mb-6 font-medium uppercase">
+        <p className="text-[10px] sm:text-xs tracking-[0.35em] text-white/45 mb-5 uppercase font-light">
           Urstyle Enterprise
-        </div>
+        </p>
         <h1
           className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-widest leading-tight mb-5 whitespace-pre-line"
           style={{ textShadow: '0 2px 24px rgba(0,0,0,0.5)' }}

@@ -60,7 +60,7 @@ export default function PrivacyPage() {
             },
             {
               heading: '10. お問い合わせ',
-              body: '個人情報の取り扱いに関するお問い合わせは、以下の窓口までご連絡ください。\n\nユアスタイル合同会社\nメール：apps@urstyle-ent.com\n受付時間：月〜土 9:00〜17:00（日祝・年末年始除く）',
+              body: '個人情報の取り扱いに関するお問い合わせは、当ウェブサイトのお問い合わせフォームよりご連絡ください。\n\nユアスタイル合同会社\n受付時間：月〜土 9:00〜17:00（日祝・年末年始除く）',
             },
           ].map((sec) => (
             <section key={sec.heading} className="mb-10">

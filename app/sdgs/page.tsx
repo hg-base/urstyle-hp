@@ -8,23 +8,23 @@ import Link from 'next/link'
 import { ExternalLink } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'SDGsへの取組',
+  title: 'SDGsへの取り組み',
   description:
-    'ユアスタイル合同会社のSDGsへの取組ページです。目標8・11・12・13に対する具体的な取り組みをご紹介します。',
+    'ユアスタイル合同会社のSDGsへの取り組みページです。目標8・11・12・13に対する具体的な取り組みをご紹介します。',
 }
 
 export default function SdgsPage() {
   return (
     <>
       <PageHero
-        title="SDGsへの取組"
+        title="SDGsへの取り組み"
         subtitle="Sustainable Development Goals"
       />
 
       <section className="py-20 md:py-28 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
-            <SectionTitle title="私たちの取組" />
+            <SectionTitle title="私たちの取り組み" label="Sustainability" />
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={1}>

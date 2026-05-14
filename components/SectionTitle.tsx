@@ -1,11 +1,21 @@
 type Props = {
   title: string
+  label?: string
   light?: boolean
 }
 
-export default function SectionTitle({ title, light = false }: Props) {
+export default function SectionTitle({ title, label, light = false }: Props) {
   return (
     <div className="text-center mb-12 md:mb-16">
+      {label && (
+        <p
+          className={`text-[10px] tracking-[0.35em] uppercase font-medium mb-3 ${
+            light ? 'text-white/40' : 'text-[var(--muted)]'
+          }`}
+        >
+          {label}
+        </p>
+      )}
       <h2
         className={`text-2xl md:text-3xl font-bold tracking-widest ${
           light ? 'text-white' : 'text-[var(--dark)]'

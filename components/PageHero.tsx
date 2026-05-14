@@ -17,14 +17,16 @@ export default function PageHero({ title, subtitle }: Props) {
           backgroundPosition: 'center',
         }}
       />
-      <div className="relative z-10 px-4 py-16">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-widest mb-3">
+      <div className="relative z-10 px-4 py-16 md:py-20">
+        {subtitle && (
+          <p className="text-[10px] tracking-[0.4em] text-white/40 uppercase mb-4 font-light">
+            {subtitle}
+          </p>
+        )}
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-widest">
           {title}
         </h1>
-        <div className="section-divider bg-white! mx-auto" />
-        {subtitle && (
-          <p className="mt-4 text-sm md:text-base text-white/70">{subtitle}</p>
-        )}
+        <div className="section-divider bg-white! mx-auto mt-5" />
       </div>
     </section>
   )
