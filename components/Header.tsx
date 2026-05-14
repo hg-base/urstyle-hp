@@ -75,7 +75,7 @@ export default function Header() {
                 {...(l.external
                   ? { target: '_blank', rel: 'noopener noreferrer' }
                   : {})}
-                className={`nav-link text-sm px-3 py-2 tracking-wide transition-colors ${
+                className={`${l.href.includes('#') ? '' : 'nav-link'} text-sm px-3 py-2 tracking-wide transition-colors ${
                   isActive(l.href)
                     ? 'active text-white'
                     : l.external
