@@ -119,7 +119,7 @@ export default function CompanyPage() {
                     当社は、取引先様・協力会社様との連携強化、適正な取引の推進、共存共栄の実現を目的として、パートナーシップ構築宣言を公表しています。
                   </p>
                   <PdfModal
-                    src="https://drive.google.com/file/d/1Mr2xdhsHNHoS3fmM-Z1LCCT2DHrDpbGx/preview"
+                    src="/images/partnership-declaration.pdf"
                     title="パートナーシップ構築宣言書"
                     label="宣言書を見る"
                     style={{ color: 'var(--accent)' }}

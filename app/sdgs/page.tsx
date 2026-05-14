@@ -112,7 +112,7 @@ export default function SdgsPage() {
           </AnimateOnScroll>
 
           {/* Declaration */}
-          <AnimateOnScroll delay={5}>
+          <AnimateOnScroll delay={4}>
             <div
               className="mt-5 p-6 md:p-8 rounded border-l-4"
               style={{
@@ -134,7 +134,7 @@ export default function SdgsPage() {
                 共存共栄の実現を目的として、パートナーシップ構築宣言を公表しています。
               </p>
               <PdfModal
-                src="https://drive.google.com/file/d/1Mr2xdhsHNHoS3fmM-Z1LCCT2DHrDpbGx/preview"
+                src="/images/partnership-declaration.pdf"
                 title="パートナーシップ構築宣言書"
                 label="宣言書を見る"
                 style={{ color: 'var(--accent)' }}
