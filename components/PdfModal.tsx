@@ -4,19 +4,13 @@ import { useState, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { FileText, X } from 'lucide-react'
 
+// A4 native dimensions at 96dpi
 const A4_W = 794
 const A4_H = 1123
-const BTN_H = 64
+const BTN_H = 60
 
-type State = { scale: number; top: number }
-
-function calcState(): State {
-  const scale    = window.innerWidth / A4_W
-  const availH   = window.innerHeight - BTN_H
-  const pdfH     = A4_H * scale
-  const top      = Math.max(0, (availH - pdfH) / 2)
-  return { scale, top }
-}
+// PDF viewers add ~5% side margin — zoom in slightly to clip it
+const VIEWER_ZOOM = 1.08
 
 type Props = {
   src: string
@@ -28,31 +22,31 @@ type Props = {
 
 export default function PdfModal({ src, title, label, className = '', style }: Props) {
   const [open, setOpen] = useState(false)
-  const [state, setState] = useState<State>({ scale: 1, top: 0 })
+  const [scale, setScale] = useState(1)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => { setMounted(true) }, [])
 
+  const recalc = useCallback(() => {
+    setScale((window.innerWidth / A4_W) * VIEWER_ZOOM)
+  }, [])
+
   const handleOpen = useCallback(() => {
-    setState(calcState())
+    setScale((window.innerWidth / A4_W) * VIEWER_ZOOM)
     setOpen(true)
   }, [])
 
   useEffect(() => {
     if (!open) return
-
     const scrollY = window.scrollY
     document.documentElement.style.overflow = 'hidden'
     document.body.style.position = 'fixed'
     document.body.style.top      = `-${scrollY}px`
     document.body.style.left     = '0'
     document.body.style.right    = '0'
-
-    const onResize = () => setState(calcState())
-    window.addEventListener('resize', onResize, { passive: true })
-
+    window.addEventListener('resize', recalc, { passive: true })
     return () => {
-      window.removeEventListener('resize', onResize)
+      window.removeEventListener('resize', recalc)
       document.documentElement.style.overflow = ''
       document.body.style.position = ''
       document.body.style.top      = ''
@@ -60,16 +54,18 @@ export default function PdfModal({ src, title, label, className = '', style }: P
       document.body.style.right    = ''
       window.scrollTo(0, scrollY)
     }
-  }, [open])
+  }, [open, recalc])
 
-  const { scale, top } = state
+  // Horizontal centering: shift left by half the overflow so margins are clipped equally
+  const visualW  = A4_W * scale
+  const shiftX   = (visualW - (typeof window !== 'undefined' ? window.innerWidth : visualW)) / 2
 
   const overlay = (
     <div
       style={{ position: 'fixed', inset: 0, zIndex: 9999, backgroundColor: '#000', display: 'flex', flexDirection: 'column' }}
       onTouchMove={(e) => e.stopPropagation()}
     >
-      {/* × ボタン */}
+      {/* × button */}
       <div style={{ height: BTN_H, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', padding: '0 16px' }}>
         <button
           type="button"
@@ -88,14 +84,13 @@ export default function PdfModal({ src, title, label, className = '', style }: P
         </button>
       </div>
 
-      {/* PDF エリア：overflow:hidden でクリップ */}
+      {/* PDF area: overflow:hidden clips the zoom-in overhang */}
       <div style={{ flex: 1, overflow: 'hidden', position: 'relative' }}>
-        {/* A4 ネイティブサイズで描画 → scale で縮小 */}
         <div
           style={{
             position: 'absolute',
-            top,
-            left: 0,
+            top: 0,
+            left: -shiftX,
             width: A4_W,
             height: A4_H,
             transform: `scale(${scale})`,
