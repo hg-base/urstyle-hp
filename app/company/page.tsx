@@ -129,8 +129,58 @@ export default function CompanyPage() {
             </div>
           </AnimateOnScroll>
 
-          {/* Vehicle list */}
+          {/* かながわSDGsパートナー */}
           <AnimateOnScroll delay={3}>
+            <div
+              className="mt-5 p-6 md:p-8 rounded border-l-4"
+              style={{
+                background: 'var(--bg-alt)',
+                borderLeftColor: '#3F7E44',
+              }}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-start gap-5">
+                <div className="flex items-center gap-4 shrink-0">
+                  <Image
+                    src="/images/photo-12.png"
+                    alt="かながわSDGsパートナーロゴ"
+                    width={140}
+                    height={54}
+                    className="h-12 w-auto"
+                  />
+                  <Image
+                    src="/images/photo-13.png"
+                    alt="かながわSDGsパートナー認定バッジ"
+                    width={72}
+                    height={72}
+                    className="w-14 h-14"
+                  />
+                </div>
+                <div>
+                  <h3
+                    className="text-sm font-semibold tracking-wide mb-3"
+                    style={{ color: 'var(--text)' }}
+                  >
+                    かながわSDGsパートナー
+                  </h3>
+                  <p
+                    className="text-sm leading-relaxed mb-4"
+                    style={{ color: 'var(--muted)' }}
+                  >
+                    当社は神奈川県のSDGs推進に取り組む事業者として、かながわSDGsパートナーに登録されています。
+                  </p>
+                  <PdfModal
+                    src="/images/1825.pdf"
+                    title="かながわSDGsパートナー登録証"
+                    label="登録証を見る"
+                    style={{ color: '#3F7E44' }}
+                  />
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
+          {/* Vehicle list */}
+          <AnimateOnScroll delay={4}>
             <div
               className="mt-5 p-6 md:p-8 rounded border-l-4"
               style={{
