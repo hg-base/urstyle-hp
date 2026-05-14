@@ -4,9 +4,9 @@ import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
 import SdgsAccordion from '@/components/SdgsAccordion'
-import PdfModal from '@/components/PdfModal'
 import BreadcrumbJsonLd from '@/components/BreadcrumbJsonLd'
 import Image from 'next/image'
+import { ExternalLink } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'SDGsへの取り組み',
@@ -136,12 +136,16 @@ export default function SdgsPage() {
                   >
                     当社は神奈川県のSDGs推進に取り組む事業者として、かながわSDGsパートナーに登録されています。
                   </p>
-                  <PdfModal
-                    src="/images/1825.pdf"
-                    title="かながわSDGsパートナー登録証"
-                    label="登録証を見る"
+                  <a
+                    href="/images/1825.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70"
                     style={{ color: '#3F7E44' }}
-                  />
+                  >
+                    <ExternalLink className="w-4 h-4 shrink-0" />
+                    登録証を見る
+                  </a>
                 </div>
               </div>
             </div>
@@ -180,12 +184,16 @@ export default function SdgsPage() {
                     当社は、取引先様・協力会社様との連携強化、適正な取引の推進、
                     共存共栄の実現を目的として、パートナーシップ構築宣言を公表しています。
                   </p>
-                  <PdfModal
-                    src="/images/partnership-declaration.pdf"
-                    title="パートナーシップ構築宣言書"
-                    label="宣言書を見る"
+                  <a
+                    href="/images/partnership-declaration.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70"
                     style={{ color: 'var(--accent)' }}
-                  />
+                  >
+                    <ExternalLink className="w-4 h-4 shrink-0" />
+                    宣言書を見る
+                  </a>
                 </div>
               </div>
             </div>
