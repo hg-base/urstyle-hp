@@ -3,9 +3,22 @@ import CompanyInfoBar from '@/components/CompanyInfoBar'
 import ContactCTA from '@/components/ContactCTA'
 import SectionTitle from '@/components/SectionTitle'
 import AnimateOnScroll from '@/components/AnimateOnScroll'
+import PhotoStrip from '@/components/PhotoStrip'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Truck, Tv } from 'lucide-react'
+
+const aboutPhotos = [
+  { src: '/images/photo-04.webp', alt: '配送スタッフ', pos: 'object-top' },
+  { src: '/images/photo-02.webp', alt: '家電設置作業', pos: 'object-top' },
+  { src: '/images/photo-03.webp', alt: '保有車両', pos: 'object-center' },
+]
+
+const recruitPhotos = [
+  { src: '/images/photo-08.webp', alt: 'URSTYLEスタッフ', pos: 'object-top' },
+  { src: '/images/photo-10.webp', alt: 'URSTYLEチーム', pos: 'object-top' },
+  { src: '/images/photo-09.webp', alt: '現場作業スタッフ', pos: 'object-top' },
+]
 
 export default function HomePage() {
   return (
@@ -14,13 +27,13 @@ export default function HomePage() {
       <CompanyInfoBar />
 
       {/* ── About ── */}
-      <section id="about" className="py-20 md:py-28 lg:py-36 bg-white">
+      <section id="about" className="pt-20 md:pt-28 lg:pt-36 pb-0 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
             <SectionTitle title="私たちについて" label="01 / About" />
           </AnimateOnScroll>
 
-          <div className="mt-12 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="mt-12 md:mt-14 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center pb-12 md:pb-16 lg:pb-20">
             <AnimateOnScroll delay={1}>
               <div>
                 <h2
@@ -89,30 +102,12 @@ export default function HomePage() {
               </div>
             </AnimateOnScroll>
           </div>
-
-          <AnimateOnScroll delay={3}>
-            <div className="mt-10 grid grid-cols-3 gap-2 sm:gap-3">
-              {[
-                { src: '/images/photo-02.webp', alt: '家電設置作業' },
-                { src: '/images/photo-03.webp', alt: '保有車両' },
-                { src: '/images/photo-04.webp', alt: '配送スタッフ' },
-              ].map((img) => (
-                <div
-                  key={img.src}
-                  className="aspect-[4/3] rounded overflow-hidden shadow-sm relative"
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className={`object-cover ${img.src !== '/images/photo-03.webp' ? 'object-top' : 'object-center'}`}
-                    sizes="(max-width: 768px) 33vw, 20vw"
-                  />
-                </div>
-              ))}
-            </div>
-          </AnimateOnScroll>
         </div>
+
+        {/* フルブリード フォトストリップ */}
+        <AnimateOnScroll delay={3}>
+          <PhotoStrip photos={aboutPhotos} />
+        </AnimateOnScroll>
       </section>
 
       {/* ── Services ── */}
@@ -177,7 +172,6 @@ export default function HomePage() {
           </div>
 
           {/* Service 2 - 画像左 + テキスト右 */}
-          {/* AnimateOnScrollにorder-*を付与してgrid childとして正しく機能させる */}
           <div className="mt-12 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
             <AnimateOnScroll delay={1} className="order-2 md:order-1">
               <div className="relative aspect-[4/3] rounded overflow-hidden shadow-lg">
@@ -244,13 +238,13 @@ export default function HomePage() {
       </section>
 
       {/* ── Recruit teaser ── */}
-      <section className="py-20 md:py-28 bg-white">
+      <section className="pt-20 md:pt-28 pb-0 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll>
             <SectionTitle title="採用情報" label="03 / Recruit" />
           </AnimateOnScroll>
           <AnimateOnScroll delay={1}>
-            <div className="mt-10 md:mt-12 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+            <div className="mt-10 md:mt-12 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 pb-10 md:pb-14">
               <p
                 className="text-sm sm:text-base leading-relaxed max-w-xl"
                 style={{ color: 'var(--muted)' }}
@@ -277,30 +271,12 @@ export default function HomePage() {
               </div>
             </div>
           </AnimateOnScroll>
-
-          <AnimateOnScroll delay={2}>
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { src: '/images/photo-08.webp', alt: 'URSTYLEスタッフ' },
-                { src: '/images/photo-10.webp', alt: 'URSTYLEチーム' },
-                { src: '/images/photo-09.webp', alt: '現場作業スタッフ' },
-              ].map((img) => (
-                <div
-                  key={img.src}
-                  className="aspect-[4/3] rounded overflow-hidden relative"
-                >
-                  <Image
-                    src={img.src}
-                    alt={img.alt}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 640px) 100vw, 33vw"
-                  />
-                </div>
-              ))}
-            </div>
-          </AnimateOnScroll>
         </div>
+
+        {/* フルブリード フォトストリップ */}
+        <AnimateOnScroll delay={2}>
+          <PhotoStrip photos={recruitPhotos} />
+        </AnimateOnScroll>
       </section>
 
       {/* ── SDGs teaser ── */}
